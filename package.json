@@ -1,0 +1,31 @@
+{
+  "name": "ServerIsGucVar",
+  "version": "0.1.0",
+  "description": "Isgucvar Server",
+  "engines": {
+    "node": "7.1.0",
+    "npm": "3.10.9"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "async": "^2.4.1",
+    "avatars.io": "^0.1.6",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "cloudinary": "^1.9.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "express-session": "^1.15.3",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^5.0.1",
+    "morgan": "^1.7.0",
+    "nodemailer": "^4.0.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "passport-local": "^1.0.0"
+  }
+}
