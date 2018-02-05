@@ -17,6 +17,10 @@ module.exports = function(app){
     // personRoutes.get('/:id', requireAuth, PersonController.getUser);
     // personRoutes.delete('/:user_id', PersonController.deleteUser);
     personRoutes.put('/', PersonController.updatePerson);
+    personRoutes.put('/tercih', PersonController.updateTercih);
+    personRoutes.get('/tags', PersonController.getTag);
+    personRoutes.post('/', PersonController.getPersons);
+    personRoutes.get('/eslesme', PersonController.getEslesme);
 
     // apiRoutes.use('/ozgecmis', ozgecmisRoutes);
     // // aktiviteRoutes.get('/ozgecmis', AktiviteController.getBasvurular);

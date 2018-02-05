@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 
 var PersonSchema = new mongoose.Schema({
 
-any: {}
+uzmanlik: [mongoose.Schema.Types.Mixed],
+tags: [mongoose.Schema.Types.Mixed],
+maas: Number,
+puan: Number
 
 }, {
     timestamps: { createdAt: 'olusturmaTarih', updatedAt: 'guncellemeTarih' } ,
