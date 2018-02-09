@@ -2,6 +2,12 @@ var Person = require('../models/person');
 var Tag = require('../models/tag');
 
 exports.getPersons = function(req, res, next){
+  var notInId = [];
+  notInId = notInId.concat(req.body.like);
+  notInId = notInId.concat(req.body.dislike);
+  notInId.push(req.body.id);
+  // console.log(req.body.like+"req.body.like");
+  // console.log(notInId+"notInId");
   var puan = 0;
   var tagOran = 0;
   var tagTable = [4,3,2,1.3,1,0.7];
@@ -20,10 +26,10 @@ exports.getPersons = function(req, res, next){
   tagOran = tagOran + tagTable[i];
 // console.log('ID: ' + item.id);
 });
-console.log(tagOran);
-console.log(tgs);
+// console.log(tagOran);
+// console.log(tgs);
 
-    Person.find({ id: { $ne:req.body.id}, tip: { $in:req.body.tip },sehir: { $in:req.body.sehir }
+    Person.find({ id: { $nin:notInId}, tip: { $in:req.body.tip },sehir: { $in:req.body.sehir }
       ,uzmanlik: { $elemMatch: { id: { $in:uzm }}} ,tags: { $elemMatch: { id: { $in:tgs }}}
       ,maas: { $gte:altmaas }, maas: { $lte:ustmaas }
     }
@@ -62,6 +68,13 @@ console.log(tgs);
           kayitItem.puan = Math.round(puan);
         });
 
+        kayit = kayit.filter(function (item) {
+          return item.puan >= 40;
+        });
+        kayit.sort(function(a, b) {
+          return b.puan - a.puan;
+          });
+          kayit = kayit.slice(req.body.slice, req.body.slice+2);
         console.log(kayit);
         res.json(kayit);
     });
@@ -117,6 +130,7 @@ exports.getTag = function(req, res, next){
     exports.getEslesme = function(req, res, next){
       console.log(req.query.like +'req.query.like' );
       console.log(req.query.id +'req.query.id' );
+      console.log(req.query.like+"req.query.like");
       var likeArray = req.query.like.split(",");
       console.log(likeArray +'likeArray' );
         Person.find({id: { $in: likeArray}, like: req.query.id },
@@ -130,6 +144,36 @@ exports.getTag = function(req, res, next){
         })
         .sort({guncellemeTarih: -1});
       }
+
+  exports.updateMessages = function(req, res, next){
+    console.log(req.query.operation);
+    if (req.query.operation == "gönderildi") {
+    Person.updateMany({
+        id : {$in: [req.body.to, req.body.from]}
+    }, {$push: {messages: req.body}}, function(err, kayit) {
+
+      if (err){
+          return res.send(err);
+      }
+      // console.log(kayit);
+        res.json(kayit);
+    });
+    }
+
+    else {
+      Person.updateMany({
+          id : {$in: [req.body.to, req.body.from]}
+      }, {$pull: {messages: req.body}}, function(err, kayit) {
+
+        if (err){
+            return res.send(err);
+        }
+        // console.log(kayit);
+          res.json(kayit);
+      });
+      }
+    }
+
 
   exports.deletePerson = function(req, res, next){
 

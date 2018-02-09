@@ -21,6 +21,7 @@ module.exports = function(app){
     personRoutes.get('/tags', PersonController.getTag);
     personRoutes.post('/', PersonController.getPersons);
     personRoutes.get('/eslesme', PersonController.getEslesme);
+    personRoutes.put('/message', PersonController.updateMessages);
 
     // apiRoutes.use('/ozgecmis', ozgecmisRoutes);
     // // aktiviteRoutes.get('/ozgecmis', AktiviteController.getBasvurular);
