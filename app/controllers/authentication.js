@@ -3,6 +3,7 @@ var request = require('request');
 exports.login = function(req, res, next){
   console.log("login");
     next();
+    // return res.send({data: "true"});
 
 }
 
@@ -16,6 +17,6 @@ exports.relogin = function(req, res, next){
   //            });
   return res.send({data: "true"});
 
-// return res.redirect("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86p3aqpfdryb6f&redirect_uri=http://localhost:8100&state=252890252890&scope=r_basicprofile");
+// return res.redirect("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86p3aqpfdryb6f&redirect_uri=http://localhost:8080/api/auth/callback&state=252890252890&scope=r_basicprofile");
 
 }
