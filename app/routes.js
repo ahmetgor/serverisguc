@@ -1,10 +1,11 @@
 var PersonController = require('./controllers/persons'),
     AuthController = require('./controllers/authentication'),
 
-    express = require('express');
-    // passport = require('passport');
+    express = require('express'),
+    passportService = require('../config/passport'),
+    passport = require('passport');
 
-// var requireAuth = passport.authenticate('jwt-user', {session: false}),
+var requireAuth = passport.authenticate('linkedin-login', {session: false});
 //     requireLogin = passport.authenticate('user-login', {session: false}),
 
 module.exports = function(app){
@@ -24,7 +25,8 @@ module.exports = function(app){
 
     apiRoutes.use('/auth', authRoutes);
 
-    authRoutes.get('/', AuthController.login, AuthController.relogin);
+    authRoutes.get('/',AuthController.login, requireAuth);
+    authRoutes.get('/callback', AuthController.relogin);
 
     // personRoutes.get('/', PersonController.getUsers);
     // personRoutes.get('/:id', requireAuth, PersonController.getUser);
