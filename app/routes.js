@@ -1,4 +1,5 @@
 var PersonController = require('./controllers/persons'),
+    AuthController = require('./controllers/authentication'),
 
     express = require('express');
     // passport = require('passport');
@@ -9,19 +10,25 @@ var PersonController = require('./controllers/persons'),
 module.exports = function(app){
 
     var apiRoutes = express.Router(),
-        personRoutes = express.Router();
+        personRoutes = express.Router(),
+        authRoutes = express.Router();
 
     apiRoutes.use('/persons', personRoutes);
 
-    // personRoutes.get('/', PersonController.getUsers);
-    // personRoutes.get('/:id', requireAuth, PersonController.getUser);
-    // personRoutes.delete('/:user_id', PersonController.deleteUser);
     personRoutes.put('/', PersonController.updatePerson);
     personRoutes.put('/tercih', PersonController.updateTercih);
     personRoutes.get('/tags', PersonController.getTag);
     personRoutes.post('/', PersonController.getPersons);
     personRoutes.get('/eslesme', PersonController.getEslesme);
     personRoutes.put('/message', PersonController.updateMessages);
+
+    apiRoutes.use('/auth', authRoutes);
+
+    authRoutes.get('/', AuthController.login, AuthController.relogin);
+
+    // personRoutes.get('/', PersonController.getUsers);
+    // personRoutes.get('/:id', requireAuth, PersonController.getUser);
+    // personRoutes.delete('/:user_id', PersonController.deleteUser);
 
     // apiRoutes.use('/ozgecmis', ozgecmisRoutes);
     // // aktiviteRoutes.get('/ozgecmis', AktiviteController.getBasvurular);
