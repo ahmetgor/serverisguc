@@ -115,7 +115,8 @@ exports.updateTercih = function(req, res, next){
 
 exports.getTag = function(req, res, next){
   var tagex = new RegExp(req.query.tag, "i");
-    Tag.find({ tag: tagex }, function(err, kayit) {
+  var cat = new RegExp(req.query.cat, "i");
+    Tag.find({ tag: tagex, cat: cat }, function(err, kayit) {
 
         if (err){
           return  res.send(err);
