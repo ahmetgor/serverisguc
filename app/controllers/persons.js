@@ -129,11 +129,11 @@ exports.getTag = function(req, res, next){
     }
 
     exports.getEslesme = function(req, res, next){
-      console.log(req.query.like +'req.query.like' );
-      console.log(req.query.id +'req.query.id' );
-      console.log(req.query.like+"req.query.like");
+      // console.log(req.query.like +'req.query.like' );
+      // console.log(req.query.id +'req.query.id' );
+      // console.log(req.query.like+"req.query.like");
       var likeArray = req.query.like.split(",");
-      console.log(likeArray +'likeArray' );
+      // console.log(likeArray +'likeArray' );
         Person.find({id: { $in: likeArray}, like: req.query.id },
           function(err, kayit) {
 
@@ -147,7 +147,7 @@ exports.getTag = function(req, res, next){
       }
 
   exports.updateMessages = function(req, res, next){
-    console.log(req.query.operation);
+    // console.log(req.query.operation);
     if (req.query.operation == "gönderildi") {
     Person.updateMany({
         id : {$in: [req.body.to, req.body.from]}

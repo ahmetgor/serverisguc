@@ -30,39 +30,35 @@ module.exports = function(app){
     authRoutes.get('/callback', AuthController.relogin);
 
 
-    passport.use(new LinkedInStrategy({
-    consumerKey: '86p3aqpfdryb6f',
-    consumerSecret: 'J3zZuknCc6B5M17o',
-    callbackURL: "https://isgucvarserver.herokuapp.com/api/auth/callback"
-  },
-  function(token, tokenSecret, profile, done) {
-    // asynchronous verification, for effect...
-      // To keep the example simple, the user's LinkedIn profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the LinkedIn account with a user record in your database,
-      // and return that user instead.
-      console.log('passs');
-      return done(null, profile);
-  }
-));
+//     passport.use(new LinkedInStrategy({
+//     consumerKey: '86p3aqpfdryb6f',
+//     consumerSecret: 'J3zZuknCc6B5M17o',
+//     callbackURL: "http://127.0.0.1:8080/api/auth/callback"
+//   },
+//   function(token, tokenSecret, profile, done) {
+//       console.log('passs');
+//       return done(null, profile);
+//   }
+// ));
 
-authRoutes.get('/',
-  passport.authenticate('linkedin'),
-  function(req, res){
-    // The request will be redirected to LinkedIn for authentication, so this
-    // function will not be called.
-  });
+// authRoutes.get('/',
+//   passport.authenticate('linkedin'),
+//   function(req, res){
+//     // console.log("getget");
+//     // res.redirect('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86p3aqpfdryb6f&redirect_uri=http://localhost:8080/api/auth/callback&state=252890252890&scope=r_basicprofile')
+//
+//   });
 
 // GET /auth/linkedin/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-authRoutes.get('/callback',
-  passport.authenticate('linkedin', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+// authRoutes.get('/callback',
+//   passport.authenticate('linkedin', { failureRedirect: '/login' }),
+//   function(req, res) {
+//     res.redirect('/');
+//   });
 
     // personRoutes.get('/', PersonController.getUsers);
     // personRoutes.get('/:id', requireAuth, PersonController.getUser);
