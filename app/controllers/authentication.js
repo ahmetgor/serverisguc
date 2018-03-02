@@ -19,7 +19,7 @@ exports.linkedPerson = function(req, res, next){
           console.log(body);
           // console.log(response);
               if (!error && response.statusCode == 200) {
-                // res.body = body;
+                res.body = body;
                   res.send(body);
                  }
              });
@@ -34,8 +34,8 @@ exports.relogin = function(req, res, next){
           // console.log(response);
               if (!error && response.statusCode == 200) {
                 res.body = body;
-                  // res.send(body);
-                  next();
+                  res.send(body);
+                  // next();
                  }
              });
   // console.log(req.query.code);
