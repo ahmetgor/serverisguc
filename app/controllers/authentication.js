@@ -38,14 +38,21 @@ exports.relogin = function(req, res, next){
           console.log("hebe");
           console.log(body+"relogin");
           // console.log(response);
-              if (!error && response.statusCode == 200) {
-                res.body = body;
+              if (!error) {
+                console.log("!error");
+                // res.body = body;
                   res.send(body);
                   // next();
                  }
+                 else {
+                   res.send(error);
+                   console.log(error);
+                 }
              });
   }
-  else{res.send();}
+  else{ res.send("empty");
+        console.log("empty");
+      }
   // console.log(req.query.code);
   // console.log(req.query.state);
   // res.redirect("https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=" + req.query.code +"&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fapi%2Fauth%2Fcallback&client_id=86p3aqpfdryb6f&client_secret=J3zZuknCc6B5M17o")
