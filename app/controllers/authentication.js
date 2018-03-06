@@ -1,9 +1,25 @@
 var request = require('request');
 
 exports.login = function(req, res, next){
-  console.log("login");
-    next();
-    // return res.send({data: "true"});
+  // var redirectURI = "http%3A%2F%2Flocalhost%3A8080%2Fapi%2Fauth%2Fcallback";
+  var redirectURI = "https%3A%2F%2Fisgucvarserver.herokuapp.com%2Fapi%2Fauth%2Fcallback";
+  console.log("gübe");
+  request.get("https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=" + req.query.code +"&redirect_uri=" + redirectURI + "&client_id=86p3aqpfdryb6f&client_secret=J3zZuknCc6B5M17o",
+        function(error, response, body) {
+          console.log("hebe");
+          console.log(body+"relogin");
+          // console.log(response);
+              if (!error) {
+                console.log("!error");
+                // res.body = body;
+                  res.send(body);
+                  // next();
+                 }
+                 else {
+                   res.send(error);
+                   console.log(error);
+                 }
+             });
 
 }
 
@@ -27,8 +43,6 @@ exports.linkedPerson = function(req, res, next){
 }
 
 exports.relogin = function(req, res, next){
-  // var redirectURI = "http%3A%2F%2Flocalhost%3A8080%2Fapi%2Fauth%2Fcallback";
-  var redirectURI = "https%3A%2F%2Fisgucvarserver.herokuapp.com%2Fapi%2Fauth%2Fcallback";
 
   console.log(req.query.app);
   if(req.query.app) {

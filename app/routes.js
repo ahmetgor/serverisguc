@@ -26,8 +26,9 @@ module.exports = function(app){
 
     apiRoutes.use('/auth', authRoutes);
 
-    authRoutes.get('/', requireAuth);
+    // authRoutes.get('/');
     authRoutes.get('/callback', AuthController.relogin);
+    authRoutes.get('/login', AuthController.login);
     authRoutes.get('/linkedPerson', AuthController.linkedPerson);
 
 
