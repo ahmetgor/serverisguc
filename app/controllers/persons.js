@@ -86,7 +86,7 @@ exports.updatePerson = function(req, res, next){
     Person.findOneAndUpdate({
         id : req.body.id
     }, {$set: {emailAddress:req.body.emailAddress, formattedName:req.body.formattedName, location:req.body.location,
-          pictureUrls:req.body.pictureUrls, positions:req.body.positions,
+          pictureUrls:req.body.pictureUrls, pictureUrl:req.body.pictureUrl, positions:req.body.positions,
           siteStandardProfileRequest:req.body.siteStandardProfileRequest, summary:req.body.summary}
     }, { upsert: true, new: true }, function(err, kayit) {
 
