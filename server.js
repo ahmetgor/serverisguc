@@ -1,5 +1,5 @@
 var express  = require('express');
-var session = require('express-session')
+// var session = require('express-session')
 var app      = express();
 var mongoose = require('mongoose');
 var logger = require('morgan');
@@ -30,7 +30,7 @@ app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false, limit: '10mb' })); // Parses urlencoded bodies
 app.use(bodyParser.json({limit: '10mb'})); // Send JSON responses
-app.use(session({ secret: 'keyboard cat' }));
+// app.use(session({ secret: 'keyboard cat' }));
 // app.use(cookieParser());
 // app.use(session({ secret: 'session secret key' }));
 app.listen(process.env.PORT || 8080);
