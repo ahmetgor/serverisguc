@@ -49,8 +49,8 @@ exports.getPersons = function(req, res, next){
           // console.log(i);
           req.body.uzmanlik.map(function(myUzmanlik) {
             kayitItem.uzmanlik.map(function(uzmanlikItem) {
-              if(myUzmanlik.id == uzmanlikItem.id && myUzmanlik.yil-uzmanlikItem.yil > -3) {
-              puan = puan + 20 + (myUzmanlik.yil-uzmanlikItem.yil)*3;
+              if(myUzmanlik.id == uzmanlikItem.id) {
+              puan = puan + 23 + (myUzmanlik.yil-uzmanlikItem.yil)*3;
               return;
             }
             });
@@ -59,7 +59,7 @@ exports.getPersons = function(req, res, next){
 
           req.body.tags.map(function(myTags, j) {
             kayitItem.tags.map(function(tagsItem, k) {
-              if(myTags.id == tagsItem.id && myTags.yil-tagsItem.yil > -3) {
+              if(myTags.id == tagsItem.id && myTags.yil-tagsItem.yil > -4) {
               puan = puan + (myTags.yil-tagsItem.yil)*yilTable[j] + 80/tagOran*tagTable[j];
               return;
             }
@@ -69,7 +69,7 @@ exports.getPersons = function(req, res, next){
         });
 
         kayit = kayit.filter(function (item) {
-          return item.puan >= 40;
+          return item.puan >= 30;
         });
         kayit.sort(function(a, b) {
           return b.puan - a.puan;
