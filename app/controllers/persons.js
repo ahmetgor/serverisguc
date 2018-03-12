@@ -124,7 +124,7 @@ exports.getTag = function(req, res, next){
 
         res.json(kayit);
       })
-      .limit(15)
+      .limit(10)
       .sort({count: -1});
     }
 
