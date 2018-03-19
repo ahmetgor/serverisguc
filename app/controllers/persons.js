@@ -10,8 +10,8 @@ exports.getPersons = function(req, res, next){
   // console.log(notInId+"notInId");
   var puan = 0;
   var tagOran = 0;
-  var tagTable = [4,3,2,1.3,1,0.7];
-  var yilTable = [4,3,2,2,1,1];
+  var tagTable = [7,6,5,4,3.5,3,2.5,2];
+  var yilTable = [4,3,3,2,2,1,1,1];
   var altmaas = parseInt(req.body.maas, 10)-1000;
   var ustmaas = parseInt(req.body.maas, 10)+1000;
   var uzm = [];
@@ -60,7 +60,7 @@ exports.getPersons = function(req, res, next){
           req.body.tags.map(function(myTags, j) {
             kayitItem.tags.map(function(tagsItem, k) {
               if(myTags.id == tagsItem.id && myTags.yil-tagsItem.yil > -4) {
-              puan = puan + (myTags.yil-tagsItem.yil)*yilTable[j] + 80/tagOran*tagTable[j];
+              puan = puan + (myTags.yil-tagsItem.yil)*yilTable[j] + 75/tagOran*tagTable[j];
               return;
             }
             });
