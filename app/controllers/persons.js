@@ -10,8 +10,8 @@ exports.getPersons = function(req, res, next){
   // console.log(notInId+"notInId");
   var puan = 0;
   var tagOran = 0;
-  var tagTable = [4,3,2,1.3,1,0.7];
-  var yilTable = [4,3,2,2,1,1];
+  var tagTable = [7,6,5,4,3.5,3,2.5,2];
+  var yilTable = [4,3,3,2,2,1,1,1];
   var altmaas = parseInt(req.body.maas, 10)-1000;
   var ustmaas = parseInt(req.body.maas, 10)+1000;
   var uzm = [];
@@ -155,7 +155,7 @@ exports.getTag = function(req, res, next){
 
         res.json(kayit);
       })
-      .limit(15)
+      .limit(10)
       .sort({count: -1});
     }
 
