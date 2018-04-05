@@ -160,22 +160,35 @@ exports.getTag = function(req, res, next){
     }
 
     exports.getEslesme = function(req, res, next){
-      // console.log(req.query.like +'req.query.like' );
-      // console.log(req.query.id +'req.query.id' );
-      // console.log(req.query.like+"req.query.like");
-      var likeArray = req.query.like.split(",");
-      // console.log(likeArray +'likeArray' );
-        Person.find({id: { $in: likeArray}, like: req.query.id },
+      var eslesmeArray = [];
+      req.body.eslesme.forEach(function(item, i){
+      eslesmeArray.push(item.id);
+
+    });
+    console.log(eslesmeArray+"eslesmeArray");
+        Person.find({id: { $in: eslesmeArray} },
           function(err, kayit) {
 
             if (err){
                 return res.send(err);
             }
-
             res.json(kayit);
         })
         .sort({guncellemeTarih: -1});
       }
+
+    // exports.getEslesme = function(req, res, next){
+    //   var likeArray = req.query.like.split(",");
+    //     Person.find({id: { $in: likeArray}, like: req.query.id },
+    //       function(err, kayit) {
+    //
+    //         if (err){
+    //             return res.send(err);
+    //         }
+    //         res.json(kayit);
+    //     })
+    //     .sort({guncellemeTarih: -1});
+    //   }
 
   // exports.updateMessages = function(req, res, next){
   //   // console.log(req.query.operation);

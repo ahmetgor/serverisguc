@@ -21,7 +21,7 @@ module.exports = function(app){
     personRoutes.put('/tercih', PersonController.updateTercih);
     personRoutes.get('/tags', PersonController.getTag);
     personRoutes.post('/', PersonController.getPersons);
-    personRoutes.get('/eslesme', PersonController.getEslesme);
+    personRoutes.post('/eslesme', PersonController.getEslesme);
     // personRoutes.put('/message', PersonController.updateMessages);
 
     apiRoutes.use('/auth', authRoutes);
