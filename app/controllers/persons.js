@@ -95,46 +95,96 @@ exports.updatePerson = function(req, res, next){
       }
       var per = JSON.parse(JSON.stringify(kayit));
       console.log(per.like);
-      Person.find({id: { $in: per.like}, like: per.id }, {id:1,_id:0},
-        function(err, likedBy) {
-
-          if (err){
-            console.log(err);
-              return res.send(err);
-          }
-          // console.log(likedBy);
-          // console.log(kayit);
-          per.likedBy = JSON.parse(JSON.stringify(likedBy));
-          if(!per.eslesme) per.eslesme = [];
-          console.log(JSON.stringify(per.likedBy)+"likedBy");
-          console.log(JSON.stringify(per.eslesme)+"peres");
-          per.likedBy.map(function (likedByItem) {
-            per.eslesme.map(function (eslesmeItem) {
-            // if(per.eslesme.findIndex(function(eslesmeItem) { eslesmeItem.id === likedByItem.id }) === -1) {
-            // var yeniEslesme = {};
-            console.log("a");
-            console.log(likedByItem.id+" b "+eslesmeItem.id+"  a  "+likedByItem.id === eslesmeItem.id);
-            // yeniEslesme.id = likedByItem.id;
-            // yeniEslesme.tarih = Date.now();
-            // per.eslesme.push(yeniEslesme);
-          // }
-        });
-          });
-
-          res.json(per);
-      });
+      // Person.find({id: { $in: per.like}, like: per.id }, {id:1,_id:0},
+      //   function(err, likedBy) {
+      //
+      //     if (err){
+      //       console.log(err);
+      //         return res.send(err);
+      //     }
+      //     // console.log(likedBy);
+      //     // console.log(kayit);
+      //     per.likedBy = JSON.parse(JSON.stringify(likedBy));
+      //     if(!per.eslesme) per.eslesme = [];
+      //     console.log(JSON.stringify(per.likedBy)+"likedBy");
+      //     console.log(JSON.stringify(per.eslesme)+"peres");
+      //     per.likedBy.map(function (likedByItem) {
+      //       per.eslesme.map(function (eslesmeItem) {
+      //       // if(per.eslesme.findIndex(function(eslesmeItem) { eslesmeItem.id === likedByItem.id }) === -1) {
+      //       // var yeniEslesme = {};
+      //       console.log("a");
+      //       console.log(likedByItem.id+" b "+eslesmeItem.id+"  a  "+likedByItem.id === eslesmeItem.id);
+      //       // yeniEslesme.id = likedByItem.id;
+      //       // yeniEslesme.tarih = Date.now();
+      //       // per.eslesme.push(yeniEslesme);
+      //     // }
+      //   });
+      //     });
+      //
+      //     res.json(per);
+      // });
       // .sort({guncellemeTarih: -1});
       // console.log(kayit);
-        // res.json(kayit);
+        res.json(kayit);
     });
 }
 
 exports.updateTercih = function(req, res, next){
     // console.log(req.body);
     req.body.guncellemeTarih = Date.now();
+    if(req.body.likedBy) {
+    Person.update({
+        id: { $in: req.body.likedBy}
+    }, { $addToSet: { likedBy: req.body.person.id }}, function(err, kayit) {
+
+      if (err){
+          // return res.send(err);
+          console.log(kayit);
+      }
+      // console.log(kayit);
+    });
+  }
+  if(req.body.eslesme) {
+  Person.update({
+      id: { $in: req.body.eslesme}
+  }, { $addToSet: { eslesme: req.body.person.id }}, function(err, kayit) {
+
+    if (err){
+        // return res.send(err);
+        console.log(kayit);
+    }
+    // console.log(kayit);
+  });
+}
+
+if(req.body.eslesmeDel) {
+Person.update({
+    id: { $in: req.body.eslesmeDel}
+}, { pull: { eslesme: req.body.person.id, likedBy: req.body.person.id }}, function(err, kayit) {
+
+  if (err){
+      // return res.send(err);
+      console.log(kayit);
+  }
+  // console.log(kayit);
+});
+}
+
+if(req.body.tercih) {
+Person.update({
+    id: { $in: req.body.tercih}
+}, { pull: { likedBy: req.body.person.id }}, function(err, kayit) {
+
+  if (err){
+      // return res.send(err);
+      console.log(kayit);
+  }
+  // console.log(kayit);
+});
+}
     Person.findOneAndUpdate({
-        id : req.body.id
-    }, req.body, { new: true }, function(err, kayit) {
+        id : req.body.person.id
+    }, req.body.person, { new: true }, function(err, kayit) {
 
       if (err){
           return res.send(err);
