@@ -160,7 +160,7 @@ exports.updateTercih = function(req, res, next){
 if(req.body.eslesmeDel) {
 Person.update({
     id: { $in: req.body.eslesmeDel}
-}, { pull: { eslesme: req.body.person.id, likedBy: req.body.person.id }}, function(err, kayit) {
+}, { $pull: { eslesme: req.body.person.id, likedBy: req.body.person.id }}, function(err, kayit) {
 
   if (err){
       // return res.send(err);
@@ -173,7 +173,7 @@ Person.update({
 if(req.body.tercih) {
 Person.update({
     id: { $in: req.body.tercih}
-}, { pull: { likedBy: req.body.person.id }}, function(err, kayit) {
+}, { $pull: { likedBy: req.body.person.id }}, function(err, kayit) {
 
   if (err){
       // return res.send(err);
@@ -184,7 +184,9 @@ Person.update({
 }
     Person.findOneAndUpdate({
         id : req.body.person.id
-    }, req.body.person, { new: true }, function(err, kayit) {
+    }, { $set: {uzmanlik: req.body.person.uzmanlik, tag: req.body.person.tag, like: req.body.person.like,
+                dislike: req.body.person.dislike, eslesme: req.body.person.eslesme}}
+        , { new: true }, function(err, kayit) {
 
       if (err){
           return res.send(err);
