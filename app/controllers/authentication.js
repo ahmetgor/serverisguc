@@ -24,7 +24,7 @@ exports.login = function(req, res, next){
 
 exports.linkedPerson = function(req, res, next){
   console.log("token"+req.query.token);
-  request.get("https://api.linkedin.com/v2/people/~:(id,formatted-name,location,industry,summary,specialties,positions,picture-urls::(original),picture-url,site-standard-profile-request,email-address)?format=json"
+  request.get("https://api.linkedin.com/v1/people/~:(id,formatted-name,location,industry,summary,specialties,positions,picture-urls::(original),picture-url,site-standard-profile-request,email-address)?format=json"
   , {
   'auth': {
     'bearer': req.query.token
