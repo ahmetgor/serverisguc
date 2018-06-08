@@ -5,9 +5,14 @@ exports.getPersons = function(req, res, next){
   var notInId = [];
   notInId = notInId.concat(req.body.like);
   notInId = notInId.concat(req.body.dislike);
+  req.body.eslesme.forEach(function(item){
+  notInId.push(item.id);
+  console.log('ID: ' + item.id);
+});
+  // notInId = notInId.concat(req.body.eslesme.id);
   notInId.push(req.body.id);
-  // console.log(req.body.like+"req.body.like");
-  // console.log(notInId+"notInId");
+  // console.log(req.body.eslesme+"req.body.eslesme.id");
+  console.log(notInId+"notInId");
   var puan = 0;
   var tagOran = 0;
   var tagTable = [7,6,5,4,3.5,3,2.5,2];
