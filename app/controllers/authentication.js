@@ -1,8 +1,9 @@
 var request = require('request');
 
 exports.login = function(req, res, next){
-  // var redirectURI = "http%3A%2F%2Flocalhost%3A8080%2Fapi%2Fauth%2Fcallback";
+  // var redirectURI = "http%3A%2F%2F127.0.0.1%3A8080%2Fapi%2Fauth%2Fcallback";
   var redirectURI = "https%3A%2F%2Fisgucvarserver.herokuapp.com%2Fapi%2Fauth%2Fcallback";
+  console.log(req.query);
   console.log("gübe");
   request.get("https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=" + req.query.code +"&redirect_uri=" + redirectURI + "&client_id=86p3aqpfdryb6f&client_secret=J3zZuknCc6B5M17o",
         function(error, response, body) {

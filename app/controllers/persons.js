@@ -71,11 +71,13 @@ exports.getPersons = function(req, res, next){
             });
           });
           kayitItem.puan = Math.round(puan);
+          if (kayitItem.puan < 10) kayitItem.puan = 10;
         });
 
-        kayit = kayit.filter(function (item) {
-          return item.puan >= 30;
-        });
+        //belli puan altı gösterme
+        // kayit = kayit.filter(function (item) {
+        //   return item.puan >= 30;
+        // });
         kayit.sort(function(a, b) {
           return b.puan - a.puan;
           });
