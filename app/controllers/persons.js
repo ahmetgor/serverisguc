@@ -5,10 +5,12 @@ exports.getPersons = function(req, res, next){
   var notInId = [];
   notInId = notInId.concat(req.body.like);
   notInId = notInId.concat(req.body.dislike);
+  if(req.body.eslesme) {
   req.body.eslesme.forEach(function(item){
   notInId.push(item.id);
   console.log('ID: ' + item.id);
 });
+}
   // notInId = notInId.concat(req.body.eslesme.id);
   notInId.push(req.body.id);
   // console.log(req.body.eslesme+"req.body.eslesme.id");
@@ -220,10 +222,13 @@ exports.getTag = function(req, res, next){
 
     exports.getEslesme = function(req, res, next){
       var eslesmeArray = [];
+
+      if(req.body.eslesme) {
       req.body.eslesme.forEach(function(item, i){
       eslesmeArray.push(item.id);
 
     });
+  }
     console.log(eslesmeArray+"eslesmeArray");
         Person.find({id: { $in: eslesmeArray} },
           function(err, kayit) {
