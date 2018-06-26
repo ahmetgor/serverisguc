@@ -19,23 +19,33 @@ exports.getPersons = function(req, res, next){
   var tagOran = 0;
   var tagTable = [7,6,5,4,3.5,3,2.5,2];
   var yilTable = [4,3,3,2,2,1,1,1];
+  req.body.maas = req.body.maas? req.body.maas : 0;
   var altmaas = parseInt(req.body.maas, 10)-1000;
   var ustmaas = parseInt(req.body.maas, 10)+1000;
   var uzm = [];
   var tgs = [];
   // console.log(altmaas +''+ ustmaas);
+  if(req.body.uzmanlik) {
   req.body.uzmanlik.forEach(function(item){
   uzm.push(item.id);
   // console.log('ID: ' + item.id);
 });
+}
+else req.body.uzmanlik = [];
+
+if(req.body.tags) {
   req.body.tags.forEach(function(item, i){
   tgs.push(item.id);
   tagOran = tagOran + tagTable[i];
 // console.log('ID: ' + item.id);
 });
+}
+else req.body.tags = [];
+
 // console.log(tagOran);
 // console.log(tgs);
-
+req.body.tip = req.body.tip? req.body.tip : [];
+req.body.sehir = req.body.sehir? req.body.sehir : []; 
     Person.find({ id: { $nin:notInId}, tip: { $in:req.body.tip },sehir: { $in:req.body.sehir }
       ,uzmanlik: { $elemMatch: { id: { $in:uzm }}} ,tags: { $elemMatch: { id: { $in:tgs }}}
       ,maas: { $gte:altmaas }, maas: { $lte:ustmaas }
@@ -54,6 +64,7 @@ exports.getPersons = function(req, res, next){
           // console.log(JSON.stringify(item.formattedName));
           // console.log(kayitItem.uzmanlik);
           // console.log(i);
+          if(req.body.uzmanlik) {
           req.body.uzmanlik.forEach(function(myUzmanlik) {
             kayitItem.uzmanlik.forEach(function(uzmanlikItem) {
               if(myUzmanlik.id == uzmanlikItem.id) {
@@ -63,7 +74,9 @@ exports.getPersons = function(req, res, next){
             });
             if (puan > 0) return;
           });
+        }
 
+        if(req.body.tags) {
           req.body.tags.forEach(function(myTags, j) {
             kayitItem.tags.forEach(function(tagsItem, k) {
               if(myTags.id == tagsItem.id && myTags.yil-tagsItem.yil > -4) {
@@ -72,6 +85,7 @@ exports.getPersons = function(req, res, next){
             }
             });
           });
+        }
           kayitItem.puan = Math.round(puan);
           if (kayitItem.puan < 10) kayitItem.puan = 10;
         });
