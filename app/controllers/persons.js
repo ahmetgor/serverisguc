@@ -45,10 +45,11 @@ else req.body.tags = [];
 // console.log(tagOran);
 // console.log(tgs);
 req.body.tip = req.body.tip? req.body.tip : [];
-req.body.sehir = req.body.sehir? req.body.sehir : []; 
-    Person.find({ id: { $nin:notInId}, tip: { $in:req.body.tip },sehir: { $in:req.body.sehir }
-      ,uzmanlik: { $elemMatch: { id: { $in:uzm }}} ,tags: { $elemMatch: { id: { $in:tgs }}}
-      ,maas: { $gte:altmaas }, maas: { $lte:ustmaas }
+req.body.sehir = req.body.sehir? req.body.sehir : [];
+    Person.find({ id: { $nin:notInId}
+      // , tip: { $in:req.body.tip },sehir: { $in:req.body.sehir }
+      // ,uzmanlik: { $elemMatch: { id: { $in:uzm }}} ,tags: { $elemMatch: { id: { $in:tgs }}}
+      // ,maas: { $gte:altmaas }, maas: { $lte:ustmaas }
     }
       , function(err, kayit) {
 
@@ -207,8 +208,9 @@ Person.update({
 }
     Person.findOneAndUpdate({
         id : req.body.person.id
-    }, { $set: {uzmanlik: req.body.person.uzmanlik, tag: req.body.person.tag, like: req.body.person.like,
-                dislike: req.body.person.dislike, eslesme: req.body.person.eslesme}}
+    }, req.body.person
+    // { $set: {uzmanlik: req.body.person.uzmanlik, tag: req.body.person.tag, like: req.body.person.like,
+    //             dislike: req.body.person.dislike, eslesme: req.body.person.eslesme}}
         , { new: true }, function(err, kayit) {
 
       if (err){
